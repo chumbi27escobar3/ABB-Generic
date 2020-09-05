@@ -128,7 +128,7 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
                 if (toRemove.getRight() != null) { // derecho es unico hijo del difunto
 
                     if (toRemove.getFather().getRight() == toRemove) {
-                   
+
                         toRemove.getRight().setFather(toRemove.getFather());
                         toRemove.getFather().setRight(toRemove.getRight());
 
@@ -199,15 +199,16 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
     @Override
     public boolean updateNode(K key, V value) {
 
-        if (searchNode(key) != null) {
+        Node<K, V> nodeToUpdate = searchNode(key);
+        if (nodeToUpdate != null) {
 
-            searchNode(key).setValue(value);
+            nodeToUpdate.setValue(value);
             return true;
 
         }
 
         return false;
-    
+
     }
 
 }
