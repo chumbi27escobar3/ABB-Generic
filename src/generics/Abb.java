@@ -14,7 +14,9 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
         Node<K, V> newNode = node;
 
         if (root == null) {
+
             root = newNode;
+
         } else {
 
             addNode(root, newNode);
@@ -26,21 +28,30 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
     private void addNode(Node<K, V> current, Node<K, V> newNode) {
 
         if (newNode.getKey().compareTo(current.getKey()) <= 0) {
+
             if (current.getLeft() == null) {
+
                 current.setLeft(newNode);
                 current.getLeft().setFather(current);
+
             } else {
+
                 addNode(current.getLeft(), newNode);
             }
 
         } else {
 
             if (current.getRight() == null) {
+
                 current.setRight(newNode);
                 current.getRight().setFather(current);
+
             } else {
+
                 addNode(current.getRight(), newNode);
+
             }
+
         }
 
     }
@@ -49,6 +60,7 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
     public Node<K, V> searchNode(K key) {
 
         if (root.getKey().equals(key)) {
+
             return root;
         }
 
@@ -101,30 +113,44 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
         if (toRemove != null) {
 
             if (toRemove.getRight() == null && toRemove.getLeft() == null) {
+
                 if (toRemove.getFather().getLeft() == toRemove) {
+
                     toRemove.getFather().setLeft(null);
                 } else {
+
                     toRemove.getFather().setRight(null);
+
                 }
+
             } else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {
 
                 if (toRemove.getRight() != null) { // derecho es unico hijo del difunto
+
                     if (toRemove.getFather().getRight() == toRemove) {
+                   
                         toRemove.getRight().setFather(toRemove.getFather());
                         toRemove.getFather().setRight(toRemove.getRight());
+
                     } else {
+
                         toRemove.getRight().setFather(toRemove.getFather());
                         toRemove.getFather().setLeft(toRemove.getRight());
+
                     }
 
                 } else { // izquierdo es unico hijo del difunto
 
                     if (toRemove.getFather().getRight() == toRemove) {
+
                         toRemove.getLeft().setFather(toRemove.getFather());
                         toRemove.getFather().setRight(toRemove.getLeft());
+
                     } else {
+
                         toRemove.getLeft().setFather(toRemove.getFather());
                         toRemove.getFather().setLeft(toRemove.getLeft());
+
                     }
 
                 }
@@ -140,10 +166,13 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
                 }
 
                 if (current.getFather().getRight() == current) {
+
                     current.getFather().setRight(null);
 
                 } else {
+
                     current.getFather().setLeft(null);
+
                 }
 
                 current.setFather(toRemove.getFather());
@@ -153,10 +182,12 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
                 current.getLeft().setFather(current);
 
                 if (toRemove.getFather().getRight() == toRemove) {
-                    current.getFather().setRight(current);
 
+                    current.getFather().setRight(current);
                 } else {
+
                     current.getFather().setLeft(current);
+
                 }
 
                 current = null;
@@ -169,10 +200,14 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
     public boolean updateNode(K key, V value) {
 
         if (searchNode(key) != null) {
+
             searchNode(key).setValue(value);
             return true;
+
         }
+
         return false;
+    
     }
 
 }
