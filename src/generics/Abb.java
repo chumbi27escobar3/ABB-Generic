@@ -1,12 +1,14 @@
 package generics;
 
+import java.util.ArrayList;
 
 public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
     private Node<K, V> root;
-    
-    public Abb() {
+    private ArrayList<Node<K, V>> list;
 
+    public Abb() {
+        list = new ArrayList<>();
     }
 
     @Override
@@ -126,7 +128,7 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
             } else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {
 
-                if (toRemove.getRight() != null) { // derecho es unico hijo del difunto
+                if (toRemove.getRight() != null) {
 
                     if (toRemove.getFather().getRight() == toRemove) {
 
@@ -140,7 +142,7 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
                     }
 
-                } else { // izquierdo es unico hijo del difunto
+                } else {
 
                     if (toRemove.getFather().getRight() == toRemove) {
 
@@ -212,76 +214,96 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
     }
 
-    @Override 
-    public ArrayList<Node<k,v>> posOrden(Node<k,v> root) {
-    	ArrayList<Node<k,v>> list = new ArrayList<>();
-    	if(root != null) {
-    		list.add(this);
-    		if(root.getLeft() = null) {
-    			return list.add(this);
-    		} else {
-    			return posOrden(root.getLeft());
-    		}
-    		if(root.getRight() = null) {
-    			return list.add(this);
-    		} else {
-    			return posOrden(root.getRight());
-    		}
-    	}
+    @Override
+    public void posOrden() {
+        list.clear();
+        posOrden(root);
     }
-    
-    @Override 
-    public ArrayList<Node<k,v>> inOrden(Node<k,v> root) {
-    	ArrayList<Node<k,v>> list = new ArrayList<>();
-    	if(root != null) {
-    		if(root.getLeft() = null) {
-    			return list.add(this);
-    		} else {
-    			return inOrden(root.getLeft());
-    		}
-    		list.add(this);
-    		if(root.getRight() = null) {
-    			return list.add(this);
-    		} else {
-    			return inOrden(root.getRight());
-    		}
-    	}
+
+    private void posOrden(Node<K, V> root) {
+
+        if (root != null) {
+            list.add(root);
+
+            if (root.getLeft() != null) {
+                posOrden(root.getLeft());
+            } else {
+                list.add(root.getLeft());
+            }
+            if (root.getRight() != null) {
+                posOrden(root.getRight());
+            } else {
+                list.add(root.getRight());
+            }
+        }
     }
-    
-    @Override 
-    public ArrayList<Node<k,v>> preOrden(Nodo<k,v> root) {
-    	ArrayList<Node<k,v>> list = new ArrayList<>();
-    	if(root != null) {
-    		if(root.getLeft() = null) {
-    			return list.add(this);
-    		} else {
-    			return preOrden(root.getLeft());
-    		}
-    		if(root.getRight() = null) {
-    			return list.add(this);
-    		} else {
-    			return preOrden(root.getRight());
-    		}
-    		list.add(this);
-    	}
+
+    @Override
+    public void inOrden() {
+        list.clear();
+        inOrden(root);
     }
-    
-   public int getHeight(Nodo<k,v> n) {
-	   if(nodo = null) {
-		   return 0;
-	   } else {
-		   int result = 1 + Math.max(getHeight(root.getRight()),getHeight(root.getLeft()));
-		   return result;
-	   }
-   }
-   
-   private int weight(Nodo<k,v> root,int cant) {
-	   if (root!=null) {
-		   cant++;
-           return weight(root.getLeft(),cant);
-           return weight(root.getRight(),cant);
-       }
-   }
-   
-   
+
+    private void inOrden(Node<K, V> root) {
+
+        if (root != null) {
+
+            if (root.getLeft() != null) {
+                inOrden(root.getLeft());
+            } else {
+                list.add(root.getLeft());
+            }
+            list.add(root);
+            if (root.getRight() != null) {
+                inOrden(root.getRight());
+            } else {
+                list.add(root.getRight());
+            }
+        }
+    }
+
+    @Override
+    public void preOrden() {
+        list.clear();
+        preOrden(root);
+    }
+
+    private void preOrden(Node<K, V> root) {
+
+        if (root != null) {
+            if (root.getLeft() != null) {
+                preOrden(root.getLeft());
+            } else {
+                list.add(root.getLeft());
+            }
+            if (root.getRight() != null) {
+                preOrden(root.getRight());
+            } else {
+                list.add(root.getRight());
+            }
+            list.add(root);
+        }
+    }
+
+    @Override
+    public int getHeight(Node<K, V> n) {
+
+        if (n == null) {
+            return 0;
+        } else {
+            return 1 + Math.max(getHeight(n.getLeft()), getHeight(n.getRight()));
+        }
+    }
+
+    @Override
+    public int weight(Node<K, V> root, int cant) {
+        if (root != null) {
+            cant++;
+            return weight(root.getLeft(), cant) + weight(root.getRight(), cant);
+
+        } else {
+            return 0;
+        }
+    }
+
 }
