@@ -1,11 +1,11 @@
 package generics;
 
-public interface IAbb<T> {
+public interface IAbb<K extends Comparable<K>,V> {
 
-    public void addNode(Node<T> node);
+    public void addNode(Node<K,V> node);
 
-    public void removeNode(String info);
+    public void removeNode(K key);
 
-    public Node<T> searchNode(String info);
+    public Node<K,V> searchNode(K key);
 
 }

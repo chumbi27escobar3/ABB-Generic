@@ -1,17 +1,17 @@
 package generics;
 
-public class Abb<T> implements IAbb<T> {
+public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
-    private Node<T> root;
+    private Node<K, V> root;
 
     public Abb() {
 
     }
 
     @Override
-    public void addNode(Node<T> node) {
+    public void addNode(Node<K, V> node) {
 
-        Node<T> newNode = node;
+        Node<K, V> newNode = node;
 
         if (root == null) {
             root = newNode;
@@ -23,9 +23,9 @@ public class Abb<T> implements IAbb<T> {
 
     }
 
-    private void addNode(Node<T> current, Node<T> newNode) {
+    private void addNode(Node<K, V> current, Node<K, V> newNode) {
 
-        if (newNode.compareTo(current) <= 0) {
+        if (newNode.getKey().compareTo(current.getKey()) <= 0) {
             if (current.getLeft() == null) {
                 current.setLeft(newNode);
                 current.getLeft().setFather(current);
@@ -46,27 +46,27 @@ public class Abb<T> implements IAbb<T> {
     }
 
     @Override
-    public Node<T> searchNode(String info) {
+    public Node<K, V> searchNode(K key) {
 
-        if (root.getInfo().equals(info)) {
+        if (root.getKey().equals(key)) {
             return root;
         }
 
-        return search(root, info);
+        return search(root, key);
 
     }
 
-    private Node<T> search(Node<T> current, String info) {
+    private Node<K, V> search(Node<K, V> current, K key) {
 
         if (current == null) {
 
             return null;
 
-        } else if (current.getInfo().equals(info)) {
+        } else if (current.getKey().equals(key)) {
 
             return current;
 
-        } else if (current.getInfo().compareTo(info) > 0) {
+        } else if (current.getKey().compareTo(key) > 0) {
 
             if (current.getLeft() == null) {
 
@@ -74,19 +74,19 @@ public class Abb<T> implements IAbb<T> {
 
             } else {
 
-                return search(current.getLeft(), info);
+                return search(current.getLeft(), key);
 
             }
 
         } else {
 
-            if (current.getInfo().equals(info)) {
+            if (current.getKey().equals(key)) {
 
                 return current;
 
             } else {
 
-                return search(current.getRight(), info);
+                return search(current.getRight(), key);
 
             }
         }
@@ -94,9 +94,9 @@ public class Abb<T> implements IAbb<T> {
     }
 
     @Override
-    public void removeNode(String info) {
+    public void removeNode(K key) {
 
-        Node<T> toRemove = searchNode(info);
+        Node<K, V> toRemove = searchNode(key);
 
         if (toRemove != null) {
 
@@ -131,7 +131,7 @@ public class Abb<T> implements IAbb<T> {
 
             } else if (toRemove.getLeft() != null && toRemove.getRight() != null) {
 
-                Node<T> current = toRemove.getLeft();
+                Node<K, V> current = toRemove.getLeft();
 
                 while (current.getRight() != null) {
 

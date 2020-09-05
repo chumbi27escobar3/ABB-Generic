@@ -1,61 +1,57 @@
 package generics;
 
-public class Node<P> {
+public class Node<K extends Comparable<K>, V> {
 
-    private Node<P> father;
-    private Node<P> right;
-    private Node<P> left;
-    private String info;
+    private Node<K, V> father;
+    private Node<K, V> right;
+    private Node<K, V> left;
+    private K key;
+    private V value;
 
-    public Node(String info) {
-        this.info = info;
+    public Node(K key, V value) {
+        this.key = key;
+        this.value = value;
+
     }
 
-    public int compareTo(Node<P> h) {
-
-        if (this.info.compareTo(h.getInfo()) < 0) {
-
-            return -1;
-
-        } else if (this.info.compareTo(h.getInfo()) > 0) {
-
-            return 1;
-
-        }
-
-        return 0;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public Node<P> getFather() {
+    public Node<K, V> getFather() {
         return father;
     }
 
-    public void setFather(Node<P> father) {
+    public void setFather(Node<K, V> father) {
         this.father = father;
     }
 
-    public Node<P> getRight() {
+    public Node<K, V> getRight() {
         return right;
     }
 
-    public void setRight(Node<P> right) {
+    public void setRight(Node<K, V> right) {
         this.right = right;
     }
 
-    public Node<P> getLeft() {
+    public Node<K, V> getLeft() {
         return left;
     }
 
-    public void setLeft(Node<P> left) {
+    public void setLeft(Node<K, V> left) {
         this.left = left;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    public void setValue(V value) {
+        this.value = value;
     }
 
 }
