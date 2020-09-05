@@ -165,4 +165,14 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
         }
     }
 
+    @Override
+    public boolean updateNode(K key, V value) {
+
+        if (searchNode(key) != null) {
+            searchNode(key).setValue(value);
+            return true;
+        }
+        return false;
+    }
+
 }

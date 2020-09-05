@@ -8,4 +8,6 @@ public interface IAbb<K extends Comparable<K>,V> {
 
     public Node<K,V> searchNode(K key);
 
+    public boolean updateNode(K key, V value);
+
 }
