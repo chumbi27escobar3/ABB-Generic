@@ -1,9 +1,10 @@
 package generics;
 
+
 public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
     private Node<K, V> root;
-
+    
     public Abb() {
 
     }
@@ -211,4 +212,76 @@ public class Abb<K extends Comparable<K>, V> implements IAbb<K, V> {
 
     }
 
+    @Override 
+    public ArrayList<Node<k,v>> posOrden(Node<k,v> root) {
+    	ArrayList<Node<k,v>> list = new ArrayList<>();
+    	if(root != null) {
+    		list.add(this);
+    		if(root.getLeft() = null) {
+    			return list.add(this);
+    		} else {
+    			return posOrden(root.getLeft());
+    		}
+    		if(root.getRight() = null) {
+    			return list.add(this);
+    		} else {
+    			return posOrden(root.getRight());
+    		}
+    	}
+    }
+    
+    @Override 
+    public ArrayList<Node<k,v>> inOrden(Node<k,v> root) {
+    	ArrayList<Node<k,v>> list = new ArrayList<>();
+    	if(root != null) {
+    		if(root.getLeft() = null) {
+    			return list.add(this);
+    		} else {
+    			return inOrden(root.getLeft());
+    		}
+    		list.add(this);
+    		if(root.getRight() = null) {
+    			return list.add(this);
+    		} else {
+    			return inOrden(root.getRight());
+    		}
+    	}
+    }
+    
+    @Override 
+    public ArrayList<Node<k,v>> preOrden(Nodo<k,v> root) {
+    	ArrayList<Node<k,v>> list = new ArrayList<>();
+    	if(root != null) {
+    		if(root.getLeft() = null) {
+    			return list.add(this);
+    		} else {
+    			return preOrden(root.getLeft());
+    		}
+    		if(root.getRight() = null) {
+    			return list.add(this);
+    		} else {
+    			return preOrden(root.getRight());
+    		}
+    		list.add(this);
+    	}
+    }
+    
+   public int getHeight(Nodo<k,v> n) {
+	   if(nodo = null) {
+		   return 0;
+	   } else {
+		   int result = 1 + Math.max(getHeight(root.getRight()),getHeight(root.getLeft()));
+		   return result;
+	   }
+   }
+   
+   private int weight(Nodo<k,v> root,int cant) {
+	   if (root!=null) {
+		   cant++;
+           return weight(root.getLeft(),cant);
+           return weight(root.getRight(),cant);
+       }
+   }
+   
+   
 }
